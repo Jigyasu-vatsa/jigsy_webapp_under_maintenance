@@ -1,0 +1,928 @@
+/* --- THEME COLORS AND TRANSITIONS --- */
+
+:root {
+  /* Light Theme */
+  --bg: #f7f7fa;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --card-r: 255;
+  --card-g: 255;
+  --card-b: 255;
+  --card-opacity: 0.5;
+  --border: #e5e7eb;
+  --accent: #3b82f6;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-glow: rgba(59, 130, 246, 0.6); /* Accent glow for hover */
+  
+  /* 💡 NEW: Custom Warning Colors */
+  --custom-warning-text: blue; 
+
+}
+
+[data-bs-theme='dark'] {
+  /* Dark Theme */
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --card: #1e293b;
+  --card-r: 30;
+  --card-g: 41;
+  --card-b: 59;
+  --card-opacity: 0.5;
+  --border: #334155;
+  --accent: #60a5fa;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --card-glow: rgba(96, 165, 250, 0.4); /* Softer accent glow for dark theme */
+  
+  /* 💡 NEW: Custom Warning Colors */
+  --custom-warning-text: blue; 
+}
+
+/* Inject this rule at the bottom of your theme CSS */
+
+[data-bs-theme="light"] .text-warning {
+    /* 💡 Default/Light Theme Override */
+    color: var(--custom-warning-text) !important;
+}
+
+[data-bs-theme="dark"] .text-warning {
+    /* 💡 Dark Theme Override (This is technically redundant if the variable is defined correctly 
+          in the [data-bs-theme='dark'] block, but it serves as a robust fallback) */
+    color: var(--custom-warning-text) !important;
+}
+
+/* By default, in light theme, the color will be whatever Bootstrap or your global styles set (e.g., black) */
+.dark-mode-only-color {
+    /* Optional: Set a fallback/light theme color if needed, or rely on Bootstrap's default */
+    color: var(--bs-dark); /* Or just let it inherit the default text color */
+}
+
+/* This rule only applies when an ancestor (the <html> or <body>) has the dark theme attribute. */
+[data-bs-theme="dark"] .dark-mode-only-color {
+    /* Set the specific color you want for DARK mode */
+    color: #ffc107 !important; /* Example: Bootstrap's yellow/warning color */
+}
+/* This rule only applies when an ancestor (the <html> or <body>) has the light theme attribute. */
+[data-bs-theme="light"] .light-mode-only-color {
+    /* Set the specific color you want for DARK mode */
+    color: #ffc107 !important; /* Example: Bootstrap's yellow/warning color */
+}
+
+/* Core Transition: Key to smooth theme change */
+html {
+  scroll-padding-top: 100px;
+  /* This is the key for smooth color transitions */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* --- BASE STYLES --- */
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1% 0 0 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Also apply transition to primary elements */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+main {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+
+@media print {
+    /* Hide all elements with the 'no-print' class */
+    .no-print, 
+    .navbar.fixed-top, 
+    .print-controls {
+        display: none !important;
+    }
+	
+	main{
+		padding:0 !important;
+		margin:0 !important;
+		min-width: 100% !important;
+		color: black !important;
+	}
+	
+    /* Adjust page layout: Remove top margin/padding to prevent overlap */
+    body {
+        padding: 0 !important;
+		margin: 0 !important;
+		font-size: x-small !important;
+		
+    }
+
+    /* Optional: Ensure tables and text are black for printing */
+    table, p, h1, h2, h3, h4, div, td, th, tr{
+        color: black !important;
+    
+    }
+}	
+
+
+/*
+ * 1. Hover Functionality: Show the dropdown menu on hover.
+ * 2. Professionalism: Add subtle shadows and transitions.
+ */
+
+/* Target the main dropdown container */
+.dropdown:hover > .dropdown-menu {
+    display: block; /* Force the menu to show on hover */
+    margin-top: 0; /* Adjust to sit right under the link */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Base style for the dropdown menu for smoother transition */
+.dropdown-menu {
+    /* REMOVED: display: block; */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth fade and slide */
+    transform: translateY(-5px); /* Start slightly above its final position */
+    border: none; /* Remove default border for cleaner look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle, professional shadow */
+    border-radius: 4px; /* Optional: Slightly rounded corners */
+}
+
+/* Style for the individual items on hover */
+.dropdown-item:hover {
+    /* Use a subtle background color that complements your main nav color */
+    background-color: #f8f9fa; /* Light gray */
+    color: #000; /* Ensure text remains black or readable */
+}
+
+/* Ensure the main link doesn't get a border/outline on focus */
+.dropdown-toggle:focus {
+    box-shadow: none !important;
+}
+
+@media (max-width: 250px){
+	.noMarginBelow250px{
+		margin:0 !important;
+		padding:0 !important;
+		font-size:small !important;
+	}
+	.nodspBelow250px{
+		display:none !important;
+	}
+	
+}
+
+@media (max-width: 500px){
+	.companyMottoBase{
+		font-size: 0.5rem !important;
+	}
+	.companyNameBase{
+		padding:0 10px 0 10px;
+		font-size: 1.09rem !important;
+	}
+	
+	.animatedMarqueeMargin{
+		margin:0 1000px !important;
+	}
+	.homeSlideshowCarousel{
+		margin:0 !important;
+		height:380px !important;
+		width:300px !important;
+		padding:0 !important;
+	}
+	.service-list-item{
+		font-size:medium;
+		font-weight:bold;
+	}
+	.starsBelow250px{
+		font-size: 1rem !important;
+	}
+	.fontSizeBelow250px{
+		font-size: x-small !important;
+	}
+	.fontSizeBelow500px{
+		font-size: small !important;
+	}
+	div .starDetailsBelow250px{
+		font-size:x-small !important;
+	}
+	/* 1. Target the main content area where tables appear */
+	.container main .table-responsive,
+	.container main table {
+		/* Ensure the table can grow beyond the container if needed */
+		max-width: 100%;
+		/* Override Bootstrap's default margin for consistency */
+		margin-bottom: 1rem;
+	}
+
+
+	/* --- The closest pure-CSS solution that doesn't rely on knowing the parent --- */
+
+	table:not(.table-responsive table) { /* Exclude if already using .table-responsive inside */
+		display: block;
+		overflow-x: auto;
+		white-space: nowrap; /* Prevent content from wrapping unexpectedly */
+		width: 100%; /* Ensure it occupies full width of its parent */
+		-webkit-overflow-scrolling: touch; /* Better scrolling on iOS */
+	}
+
+}
+
+@media (max-width: 991.98px) { /* Target screens smaller than the 'lg' breakpoint (Bootstrap's default) */
+    .navbar-collapse {
+        /* Optional: Ensures the collapsed menu doesn't take up excessive vertical space */
+        padding-bottom: 0;
+    }
+
+    .navbar-nav {
+        /* Removes the default bottom margin on the main list in collapsed state */
+        margin-bottom: 0 !important;
+    }
+
+    .nav-item {
+        /* Ensures individual list items don't add extra vertical space */
+        margin-bottom: 0 !important;
+    }
+
+    /* Specifically target the 'Login/Join' or 'Dashboard/Logout' buttons that are outside the dropdowns */
+    /* They often have a default 'mb-2' or similar utility class that might add space */
+    .navbar-nav .nav-item:last-child {
+        margin-bottom: 0 !important;
+    }
+	.announcementHeight{
+		min-height:40px;
+	}
+	.textSmallerOnSmall{
+		    font-size: xx-small;
+	}
+	.logoSizeSmallD{
+		max-width:80px !important;
+	}
+	
+
+}
+
+
+
+/*
+ * This targets the space between navigation items in the EXPANDED (desktop) view.
+ * Bootstrap uses the 'lg' breakpoint (min-width: 992px) for this view.
+ */
+@media (min-width: 992px) {
+    /* Target all standard nav items */
+    .navbar-nav .nav-item {
+        /* Reduce the default horizontal margin/padding of the nav items.
+         * Default Bootstrap spacing is often around 0.5rem (8px) on each side.
+         * Setting margin to 0 will remove most default spacing.
+         */
+        margin-left: 0.25rem !important; /* Smaller space to the left */
+        margin-right: 0.25rem !important; /* Smaller space to the right */
+    }
+
+    /* Target the specific elements you already have custom spacing on (Logout/Join buttons) */
+    /* This overrides the 'ms-lg-2' class which adds a margin-left on large screens */
+    .navbar-nav .ms-lg-2 {
+        margin-left: 0.5rem !important; /* Keep a slightly larger space for the buttons */
+    }
+
+    /* Reduce the padding on the link itself if you need even tighter spacing */
+    .navbar-nav .nav-link {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+	
+	
+	
+	.announcementHeight{
+		min-height:35px;
+	}
+	
+	.logoSizeSmallD{
+		max-width:120px !important;
+	}
+	
+}
+
+
+
+
+
+
+/*-------------Border Animate--------------*/
+
+
+/* 1. Define the linear gradient animation (No Change) */
+@keyframes continuous-scroll {
+  100% {
+    /* Scrolls the large background image across the element */
+    background-position: var(--scroll-length, 200%) 0;
+  }
+}
+
+/* 2. STYLE THE OUTER SECTION (.hero) */
+.hero, .borderanimate{
+  /* CSS Variables */
+  --transition-speed: 8s; 
+  --border-thickness: 2px; 
+  --bg-color: var(--bg); 
+  --scroll-length: 200%; 
+
+  /* Apply the animation to the element */
+  animation: continuous-scroll var(--transition-speed) linear infinite;
+
+  /* --- EXPLICIT BACKGROUND PROPERTIES (THE FIX) --- */
+  
+  /* 1. Define the gradient (image source) */
+  background-image: linear-gradient(
+    90deg, 
+    #ff00a0, #00c0ff, #00ff66, #ff00a0, /* First color set */
+    #00c0ff, #00ff66, #ff00a0 /* Second color set for seamless loop */
+  );
+  
+  /* 2. Define size (Must be larger than 100% for scrolling to work) */
+  background-size: var(--scroll-length) 100%;
+  
+  /* 3. Define initial position (Animation changes this) */
+  background-position: 0 0; 
+  
+  
+  /* --- WRAPPER PROPERTIES (No Change) --- */
+  position: relative;
+  padding: var(--border-thickness); 
+  overflow: hidden; 
+}
+
+/* 3. STYLE THE INNER WRAPPER (.hero-content-wrapper) */
+.hero-content-wrapper {
+  background-color: var(--bg-color); 
+  padding: 3rem 0; 
+  position: relative;
+  z-index: 2; 
+}
+
+/*------------Background Animate --------------*/
+
+.backgroundanimate{
+  /* CSS Variables */
+  --transition-speed: 10s; 
+  --bg-color: var(--bg); 
+  --scroll-length: 200%; 
+
+  /* Apply the animation to the element */
+  animation: continuous-scroll var(--transition-speed) linear infinite;
+
+  /* --- EXPLICIT BACKGROUND PROPERTIES (THE FIX) --- */
+  
+  /* 1. Define the gradient (image source) */
+  background-image: linear-gradient(
+    90deg,
+    /* Reduced Opacity (alpha = 0.5) */
+    rgba(255, 0, 160, 0.2), /* #ff00a0 @ 50% opacity */
+    rgba(0, 192, 255, 0.2), /* #00c0ff @ 50% opacity */
+    rgba(0, 255, 102, 0.2), /* #00ff66 @ 50% opacity */
+    rgba(255, 0, 160, 0.2),
+    rgba(0, 192, 255, 0.2),
+    rgba(0, 255, 102, 0.2),
+    rgba(255, 0, 160, 0.2)
+  );
+  
+  /* 2. Define size (Must be larger than 100% for scrolling to work) */
+  background-size: var(--scroll-length) 100%;
+  
+  /* 3. Define initial position (Animation changes this) */
+  background-position: 0 0; 
+  
+  
+  /* --- WRAPPER PROPERTIES (No Change) --- */
+  position: relative;
+  padding: var(--border-thickness); 
+  overflow: hidden; 
+}
+
+
+/* --- COMPONENT STYLES: RELIABLE CARD TRANSITION --- */
+
+.card {
+  /* Initial state */
+  background: rgba(var(--card-r), var(--card-g), var(--card-b), var(--card-opacity));
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 10px var(--card-shadow);
+  padding: 20px;
+  border-radius: 8px; /* Added for professionalism */
+
+  /* Apply ALL transitions here for smooth changes */
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease; /* Added a transform transition for hover lift */
+}
+
+/* Hover Effect: The professional card animation */
+.card:hover {
+  /* Change the border and shadow on hover */
+  border-color: var(--accent); /* Border smoothly changes to accent color */
+  box-shadow:
+    0 4px 15px var(--card-shadow), /* Original shadow */
+    0 0 10px var(--card-glow); 	  /* New glow effect */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+
+/* --- NAVIGATION & BUTTON TRANSITIONS --- */
+
+/* 1. Base Button/Interactive Element Transition */
+/* Applying a base transition to all interactive elements for consistency */
+button,
+a.btn,
+.nav-link,
+.btn {
+  /* Ensure all color, background, and shadow changes are smooth */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease; /* Faster transform for a 'click' feel */
+}
+
+/* 2. Navigation Link Hover Effect */
+/* Make nav links stand out on hover without changing layout */
+.navbar a:not(.btn),
+.nav-link {
+  /* Set initial text color */
+  /*color: var(--text);*/
+  /* Remove underline by default */
+  text-decoration: none;
+  /* Add a slight bottom border for a clean, modern hover indicator */
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px; /* Adjust padding to make room for the border */
+}
+
+.navbar a:not(.btn):hover,
+.nav-link:hover {
+  color: var(--accent); /* Text changes to accent color */
+  border-bottom: 2px solid var(--accent); /* Accent-colored underline appears */
+}
+
+/* 3. Primary Button (e.g., .btn-primary) Transitions */
+.btn-primary,
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--card); /* Text color should contrast with accent */
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover,
+.btn-accent:hover {
+  /* Slightly darker or lighter shade of accent for contrast on hover */
+  filter: brightness(1.15);
+  box-shadow: 0 0 8px var(--card-glow); /* Subtle glow on hover */
+  transform: translateY(-1px); /* Gentle lift */
+}
+
+.btn-primary:active,
+.btn-accent:active {
+  /* Press down effect */
+  transform: translateY(0);
+  filter: brightness(0.9);
+  box-shadow: none;
+}
+
+/* 4. Secondary/Outline Button Transitions */
+.btn-secondary,
+.btn-outline {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover,
+.btn-outline:hover {
+  color: var(--accent); /* Text changes to accent */
+  border-color: var(--accent); /* Border changes to accent */
+  background-color: var(--card); /* Stays light, or a very subtle background color */
+  box-shadow: 0 0 5px var(--card-shadow);
+}
+
+
+/* --- OTHER COMPONENT STYLES --- */
+
+.logo {
+  height: 48px;
+}
+
+.navbar .small {
+  font-size: 0.85rem;
+}
+
+.footer-brand {
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.footer-text {
+  color: var(--muted);
+}
+
+[data-bs-theme="dark"],
+[data-bs-theme="light"] {
+  color: var(--bs-body-color);
+}
+
+/* --- ANIMATED STRIP / MARQUEE --- */
+
+.animated-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent);
+  color: white;
+  padding: 0 0;
+  overflow: hidden;
+  z-index: 1000;
+  transition: background-color 0.1s ease;
+}
+
+.animated-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-animation 20s linear infinite;
+}
+
+.animated-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-animation {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* --- FORM STYLES --- */
+
+label:has(+ input:required):after {
+  content: " *";
+  color: #e3342f;
+  font-weight: bold;
+}
+
+
+/*
+ * 1. BASE CARD STYLING 
+ * Uses sharp edges (rounded-0 in HTML) and a strong focus on the border.
+ */
+.professional-card {
+  /* Subtle default border */
+  border: 1px solid #dcdcdc !important; 
+  /* Smooth transition for hover effects */
+  transition: box-shadow 0.3s ease, border 0.3s ease; 
+}
+
+/*
+ * 2. HOVER EFFECT
+ * The professional interaction: no "lift," just a cleaner, primary-color border highlight and a slightly deeper shadow.
+ */
+.professional-card:hover {
+  /* Highlights the border with your primary color */
+  border: 1px solid var(--bs-primary, #0d6efd) !important; 
+  
+  /* A slightly more defined shadow, indicating focus without lifting */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important; 
+}
+
+/*
+ * 3. BUTTON FOCUS (Optional but Recommended)
+ * Makes the call to action feel more intentional.
+ */
+.professional-card .btn-outline-primary:hover {
+  /* Use your brand's color for a solid fill on hover */
+  color: white; 
+  background-color: var(--bs-primary, #0d6efd); 
+  border-color: var(--bs-primary, #0d6efd);
+}
+
+
+/* --- NEW FULL-SCREEN LAYER STYLES --- */
+.full-screen-background-layer {
+  /* 1. Full-Viewport Positioning */
+  position: fixed; /* Keep it stationary in the viewport */
+  top: 0;
+  left: 0;
+  width: 200vw; /* MUST be 200% of viewport width (vw) for the 200% gradient to scroll */
+  height: 100vh;
+  z-index: -2; /* Puts it behind all page content */
+  
+  /* 2. Your Gradient Styles */
+  --transition-speed: 15s;
+  background-image: linear-gradient(
+    90deg,
+    /* Reduced Opacity (alpha = 0.3) */
+    rgba(255, 0, 160, 0.3),
+    rgba(0, 192, 255, 0.3),
+    rgba(0, 255, 102, 0.3),
+    rgba(255, 0, 160, 0.3),
+    rgba(0, 192, 255, 0.3),
+    rgba(0, 255, 102, 0.3),
+    rgba(255, 0, 160, 0.3)
+  );
+  /* The gradient image covers 100% of the 200vw layer */
+  background-size: 100% 100%;
+  
+  /* 3. Animation using the efficient 'transform' property */
+  animation: jigsy-bg-scroll var(--transition-speed) linear infinite;
+  will-change: transform; /* Hint to the browser for optimization */
+}
+/* --- THE KEYFRAMES (ANIMATING TRANSFORM) --- */
+@keyframes jigsy-bg-scroll {
+  from {
+    transform: translateX(0);
+  }
+  /* Scrolls the 200vw layer by 100% of the viewport (50% of its own width) */
+  to {
+    transform: translateX(-50vw); 
+  }
+}
+
+
+
+/* 1. CENTERS THE ENTIRE LIST BLOCK */
+.centered-list {
+    /* Shrink the UL to be only as wide as its widest LI content */
+    width: fit-content; 
+    /* Centers the UL block on the page */
+    margin-left: auto;
+    margin-right: auto;
+    /* Forces the text/bullets to start from the left edge of the centered UL */
+    text-align: left; 
+    /* Ensures the bullet is just before the text */
+    list-style-position: inside; 
+	list-style-type: none;
+}
+
+/* 2. STYLES INDIVIDUAL LIST ITEMS */
+.service-list-item {
+    /* Ensures the LI acts as a standard list item, forcing a line break */
+    display: list-item; 
+    /* Ensure the padding/margin is applied inside the centered block */
+    margin: 2px 0; 
+    padding: 5px 10px;
+    
+    /* Hover Styling */
+    border-radius: 5px; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+	list-style:none;
+}
+
+/* 3. HOVER EFFECT */
+.service-list-item:hover {
+    /* This background change is now contained only within the width of the UL block */
+    background-color: #f0f8ff; 
+    color: #0056b3; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.testimonial-card {
+    /* Maximum possible curve for an elliptical appearance */
+    border-radius: 199px / 199px !important; 
+    /* Ensures the card content aligns nicely within the curves */
+    padding: 20px 30px; 
+}
+
+/* IMPORTANT: To make the text content look better, center the inner body vertically */
+.testimonial-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*-------------------------------------------------- Rating Stars -----------------------------------------*/
+/* Custom Star Rating CSS */
+.star-rating-container i {
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+/* Base colors for feedback based on rating level (Professional Palette) */
+.star-rating-container.rating-1 i[data-rating="1"] { color: #dc3545; /* Red (Danger) */ }
+.star-rating-container.rating-2 i[data-rating="1"],
+.star-rating-container.rating-2 i[data-rating="2"] { color: #fd7e14; /* Orange (Warning) */ }
+.star-rating-container.rating-3 i[data-rating="1"],
+.star-rating-container.rating-3 i[data-rating="2"],
+.star-rating-container.rating-3 i[data-rating="3"] { color: #ffc107; /* Yellow (Primary) */ }
+.star-rating-container.rating-4 i[data-rating="1"],
+.star-rating-container.rating-4 i[data-rating="2"],
+.star-rating-container.rating-4 i[data-rating="3"],
+.star-rating-container.rating-4 i[data-rating="4"] { color: #20c997; /* Teal/Light Green (Success) */ }
+.star-rating-container.rating-5 i[data-rating="1"],
+.star-rating-container.rating-5 i[data-rating="2"],
+.star-rating-container.rating-5 i[data-rating="3"],
+.star-rating-container.rating-5 i[data-rating="4"],
+.star-rating-container.rating-5 i[data-rating="5"] { color: #0d6efd; /* Blue (Primary) */ }
+
+/* --- GLOBAL CAROUSEL CONTROL STYLES (Desktop & Mobile) --- */
+
+/* Style for making carousel controls highly visible and accessible */
+#sectorsCarousel .carousel-control-prev,
+#sectorsCarousel .carousel-control-next {
+    color: #0d6efd;
+    width: 5%;
+    opacity: 1;
+    z-index: 10;
+}
+
+/* Ensure controls are slightly outside the content area */
+#sectorsCarousel .carousel-control-prev {
+    left: -20px;
+}
+#sectorsCarousel .carousel-control-next {
+    right: -20px;
+}
+
+/* Style for making carousel controls highly visible and accessible */
+#reviewCarousel .carousel-control-prev,
+#reviewCarousel .carousel-control-next {
+    color: #0d6efd;
+    width: 5%;
+    opacity: 1;
+    z-index: 10;
+}
+
+/* Ensure controls are slightly outside the content area */
+#reviewCarousel .carousel-control-prev {
+    left: -50px;
+}
+#reviewCarousel .carousel-control-next {
+    right: -20px;
+}
+
+/* Make the icons themselves larger/bolder */
+#reviewCarousel .carousel-control-prev-icon,
+#reviewCarousel .carousel-control-next-icon {
+    filter: invert(1) grayscale(100%) brightness(0);
+    background-image: none;
+    font-size: 2rem;
+}
+
+/* Use a custom icon element (like a solid circle) for better visibility */
+#reviewCarousel .carousel-control-prev::after {
+    content: "❮";
+    color: #495057;
+}
+#reviewCarousel .carousel-control-next::after {
+    content: "❯";
+    color: #495057;
+}
+
+/* Card Styling (Desktop & Mobile) */
+.testimonial-card {
+    border-radius: 30px !important; 
+    padding: 15px; 
+}
+.testimonial-card .card-body {
+    overflow: hidden; 
+}
+
+/* --- HEIGHT STABILITY FIXES (Primarily Desktop) --- */
+
+/* 1. Set a minimum height on the carousel container to prevent "jumping" (for 3-card slides) */
+#reviewCarousel .carousel-inner {
+    min-height: 250px; 
+}
+
+/* 2. Standardize the height of the comment section within the card (for visual consistency) */
+.testimonial-card p.small.text-muted {
+    height: 72px; /* Fixed height for text area */
+    display: block;
+    overflow: hidden;
+}
+
+/* --- RESPONSIVE CAROUSEL STYLES (Common to all new carousels) --- */
+
+/* --- MOBILE RESPONSIVENESS OVERRIDES (Screens < 768px) --- */
+@media (max-width: 767.98px) {
+    /* 1. Reset min-height on mobile to allow the carousel container to shrink (since there's only 1 card) */
+    #reviewCarousel .carousel-inner {
+        min-height: auto; 
+    }
+    
+    /* 2. Hide the second and third card in the row to ensure only single card is visible per slide */
+    .carousel-item .row > div:nth-child(n+2) {
+        display: none; 
+    }
+    
+    /* 3. Center the single visible card */
+    .carousel-item .row {
+        justify-content: center !important;
+    }
+    
+    /* Optional: Adjust carousel control positions for mobile visibility */
+    #reviewCarousel .carousel-control-prev,
+    #reviewCarousel .carousel-control-next {
+        width: 15%;
+    }
+    #reviewCarousel .carousel-control-prev {
+        left: 0;
+    }
+    #reviewCarousel .carousel-control-next {
+        right: 0;
+    }
+	/* Optional: Styles for new carousel controls if you want them visible/accessible */
+	.custom-carousel-control {
+		color: #0d6efd;
+		opacity: 1;
+		width: 5%;
+	}
+
+}
+
+/* --- RESPONSIVE CAROUSEL STYLES FOR JOBS --- */
+
+/* Standard control styling for the new jobs carousel */
+#jobsCarousel .carousel-control-prev,
+#jobsCarousel .carousel-control-next {
+    color: #0d6efd;
+    width: 5%;
+    opacity: 1;
+    z-index: 10;
+}
+
+#jobsCarousel .carousel-control-prev {
+    left: -10px;
+}
+#jobsCarousel .carousel-control-next {
+    right: -5px;
+}
+
+hr {
+    /* Step 1: Remove default browser styles */
+    border: none;
+    height: 1px;
+    margin: 3rem 0; /* Add better vertical spacing */
+    opacity: 0.8; 
+
+    /* Step 2: Apply the fading gradient */
+    background-image: linear-gradient(to right, 
+        rgba(0, 0, 0, 0),       /* Start transparent */
+        rgba(33, 37, 41, 0.5),  /* Fade to a semi-dark color (Bootstrap's $gray-800) */
+        rgba(0, 0, 0, 0)        /* End transparent */
+    );
+    /* Optional: Add a smooth hover effect */
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* Dynamic Hover Effect (Optional) */
+hr:hover {
+    background-image: linear-gradient(to right, 
+        rgba(0, 0, 0, 0),       
+        rgba(0, 123, 255, 0.7), /* Highlight color on hover (Bootstrap primary) */
+        rgba(0, 0, 0, 0)        
+    );
+    opacity: 1;
+}
+
+ /* Floating cursor for move to top  */
+#myBtn {
+    display:block;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color:white;
+      color: white;
+      cursor: pointer;
+      border-radius: 10px;
+      opacity:0.8;
+    }
+    
+    #myBtn:hover {
+      background-color: #555;
+    }
+
+@media (max-width: 767.98px) {
+	.#myBtn{
+		opacity:0.5;
+	}
+}
+
+
+
+
+
