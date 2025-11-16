@@ -62,6 +62,17 @@
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
       }
+	  @media (max-width:500px) {
+		  .maintainace_head{
+			font-size:1.2rem;
+		  }
+		  .maintainace_content{
+			font-size:0.8rem;
+		  }
+		  .maintainace_timer{
+			font-size:0.5rem;
+		  }
+	  }
     </style>
   </head>
   <body >
@@ -134,21 +145,22 @@
     <!-- Main Content: Countdown/Wakeup Page -->
     <main>
       <div class="container text-center py-5">
-        <h1 class="display-6 fw-bold text-warning mb-5">🛑 Under Maintainance or Service Startup in Progress 🛑</h1>
+        <h1 class="display-6 fw-bold text-warning mb-5 maintainace_head">🛑 Under Maintainance or Service Startup in Progress 🛑</h1>
         <hr class="w-50 mx-auto border-warning">
-        <p class="lead mb-4">
-          Our service has temporarily paused due to maintainance works.<br><br>
-          To continue to the page you requested, please wait we are checking if requested page is available and ready for serving or not, if available redirecting you to official website soon.
-        </p>
         
         <!-- Countdown Display -->
         <div id="countdown-display" class="countdown-circle text-danger">65</div>
         
-        <p class="text-muted small mt-4">
+        <p class="text-muted small mb-4 maintainace_timer">
           You will be automatically redirected to the official website in <span id="time-left" class="fw-bold text-danger">65</span> seconds.
         </p>
 		
-		<p class="lead mb-4 mt-0">
+		<p class="lead maintainace_content">
+          Our service has temporarily paused due to maintainance works.<br><br>
+          To continue to the page you requested, please wait we are checking if requested page is available and ready for serving or not, if available redirecting you to official website shortly.
+        </p>
+		
+		<p class="lead mt-0 maintainace_content">
 		~We appreciate and thanks for your patience.
         </p>
         
@@ -321,7 +333,7 @@
                       countdownDisplay.classList.remove('countdown-circle');
                       countdownDisplay.innerHTML = '<i class="bi bi-arrow-right-circle-fill text-success"></i>';
                   }
-                  if (timeLeftElement) timeLeftElement.innerText = "immediately";
+                  if (timeLeftElement) timeLeftElement.innerText = "few";
                   if (manualRedirectBtn) {
                     manualRedirectBtn.classList.remove('disabled');
                     manualRedirectBtn.classList.remove('btn-outline-danger');
